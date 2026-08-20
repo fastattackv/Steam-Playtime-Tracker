@@ -2,6 +2,7 @@
 This file contains functions to read/write the play times read from steam to json files
 
 Fastattack, 2026
+Under MIT License
 """
 
 import json

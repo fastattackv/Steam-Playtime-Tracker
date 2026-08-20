@@ -10,6 +10,7 @@ CLI arguments:
 - PrintGamesAppid / game-appid: prints every appid<->game correpondence saved on this computer
 
 Fastattack, 2026
+Under MIT License
 """
 
 from parameters import *

@@ -4,6 +4,7 @@ Every function written here works fully locally and no internet request needs to
 Because of this, some data retrieved is cached data, thus it is not possible to confirm that the extracted data is always up to date
 
 Fastattack, 2026
+Under MIT License
 """
 
 

@@ -2,6 +2,7 @@
 This file contains the constants and parameters for the CLI app
 
 Fastattack, 2026
+Under MIT License
 """
 
 # Customize the following variables to modify the output folders for the files created by main.py
