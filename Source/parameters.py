@@ -9,3 +9,6 @@ Under MIT License
 
 SAVE_FOLDER = "steam games times"  # folder to save playtimes to. Should not contain any other file or folder than the ones created by this program
 PROGRESSION_FILEPATH = "playtime_progression.csv"
+
+DATE_FORMAT = "%Y-%m-%d"  # YYYY-MM-DD
+TIME_FORMAT = "%H-%M-%S"

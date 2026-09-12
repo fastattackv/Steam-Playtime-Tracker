@@ -8,7 +8,8 @@ CLI arguments:
 - GenerateTimeProgressionCSV / progressioncsv: Generates a file that contains the playtime data of all saves
 - PrintAllInfo / info: prints everything that the program are capable of retrieving about steam
 - PrintGamesAppids / appids: prints every appid<->game correpondence saved on this computer
-- Visualization / graph: starts the graphing dialog to visualize the saved data
+- Visualization_GUI / graph: starts the graphing interface to visualize the saved data
+- Visualization_CLI / graph_CLI: starts the graphing dialog to visualize the saved data
 
 Fastattack, 2026
 Under MIT License
@@ -17,14 +18,13 @@ Under MIT License
 from parameters import *
 from read_steam_functions import *
 from games_data_codec import *
-from playtime_visualization import *
+from playtime_visualization_CLI import *
+from playtime_visualization_GUI import *
 
 import time
 import sys
 import os
 
-DATE_FORMAT = "%Y-%m-%d"  # YYYY-MM-DD
-TIME_FORMAT = "%H-%M-%S"
 
 
 def is_date(val: str):
@@ -201,8 +201,22 @@ if __name__ == "__main__":
     elif arg == "PrintGamesAppid" or arg == "appids":
         print_appid_game_correspondence()
 
-    elif arg == "Visualization" or arg == "graph":
+    elif arg == "Visualization_CLI" or arg == "graph_CLI":
         visualization_dialog()
+
+    elif arg == "Visualization_GUI" or arg == "graph":
+        games_data = generate_playtime_progression_csv(SAVE_FOLDER, "")
+        
+        steam_path = read_steam_path()
+        path = os.path.normpath(os.path.join(steam_path, "appcache/appinfo.vdf"))
+        raw_data = parse_appinfo(path)
+        correspondence = {}
+        
+        for appid in raw_data:
+            if raw_data[appid]["type"] in ["Game", "Demo", "Beta"]:
+                correspondence[appid] = raw_data[appid]['name']
+        
+        show_selection_GUI(games_data, correspondence)
 
     else:
         print("Unknown argument:", arg)

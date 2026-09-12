@@ -14,20 +14,21 @@ The file `games_data_codec.py` contains functions to write the extracted data to
 
 The file `playtime_saver.py` contains a small program that uses the previous files to save your playtimes.
 
-The file `playtime_visualization.py` contains functions that use matplotlib to visualize the saved playtimes.
+The file `playtime_visualization_CLI.py` contains functions that use matplotlib to visualize the saved playtimes.
 
-I am currently working on a GUI to fully use the already written functions and to make the app more user-friendly.
+The file `playtime_visualization_GUI.py` contains functions that create a GUI to select the data to visualize more easily. Following is an example of this GUI:
 
-
-![visualization example image](visualization_example.png)
+![selection_example](Example_files/selection_example.png)
+![date_example](Example_files/date_example.png)
+![graph_example](Example_files/graph_example.png)
 
 
 ## Installation
 
-If you want to use the `playtime_saver.py` file automatically to save your playtimes, you can:
+If you want to use this program to save and visualize your playtimes, you can:
 
 1. Download the `Source` folder from this repo to your machine.
-2. Install python and then the `vdf` module from pip
+2. Install python and then the `vdf` and `MoreCustomTkinterWidgets` module from pip.
 3. Run the `playtime_saver.py` file from a cmd using the different CLI arguments.
 
 If you want to run this script automatically every day to save your playtimes, you can:
