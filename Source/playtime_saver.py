@@ -175,48 +175,76 @@ if __name__ == "__main__":
               "- Visualization / graph: starts the graphing dialog to visualize the saved data")
 
     elif arg == "SaveCurrentPlayTimes" or arg == "save":
-        file = save_current_playtimes(SAVE_FOLDER)
-        print(f"Created save file at: \"{file}\"")
-
-    elif arg == "DailyPlayTimeSave" or arg == "daily":
-        files = os.listdir(SAVE_FOLDER)
-        if not files:  # no previous save
+        try:
             file = save_current_playtimes(SAVE_FOLDER)
             print(f"Created save file at: \"{file}\"")
-        else:
-            last_save_day = files[-1].split("_")[2]
-            if last_save_day != time.strftime(DATE_FORMAT):  # different day than today
+        except Exception as e:
+            print(f"There was an error when executing the command \"SaveCurrentPlayTimes\":\n{e}")
+            input("Enter to exit...")            
+
+    elif arg == "DailyPlayTimeSave" or arg == "daily":
+        try:
+            files = os.listdir(SAVE_FOLDER)
+            if not files:  # no previous save
                 file = save_current_playtimes(SAVE_FOLDER)
                 print(f"Created save file at: \"{file}\"")
             else:
-                print("A save was already made today")
+                last_save_day = files[-1].split("_")[2]
+                if last_save_day != time.strftime(DATE_FORMAT):  # different day than today
+                    file = save_current_playtimes(SAVE_FOLDER)
+                    print(f"Created save file at: \"{file}\"")
+                else:
+                    print("A save was already made today")
+        except Exception as e:
+            print(f"There was an error when executing the command \"DailyPlayTimeSave\":\n{e}")
+            input("Enter to exit...")
 
     elif arg == "GenerateTimeProgressionCSV" or arg == "progressioncsv":
-        generate_playtime_progression_csv(SAVE_FOLDER, PROGRESSION_FILEPATH)
-        print(f"Generated progression file at: {PROGRESSION_FILEPATH}")
+        try:
+            generate_playtime_progression_csv(SAVE_FOLDER, PROGRESSION_FILEPATH)
+            print(f"Generated progression file at: {PROGRESSION_FILEPATH}")
+        except Exception as e:
+            print(f"There was an error when executing the command \"GenerateTimeProgressionCSV\":\n{e}")
+            input("Enter to exit...")
 
     elif arg == "PrintAllInfo" or arg == "info":
-        print_all_available_data()
+        try:
+            print_all_available_data()
+        except Exception as e:
+            print(f"There was an error when executing the command \"PrintAllInfo\":\n{e}")
+            input("Enter to exit...")
 
     elif arg == "PrintGamesAppid" or arg == "appids":
-        print_appid_game_correspondence()
+        try:
+            print_appid_game_correspondence()
+        except Exception as e:
+            print(f"There was an error when executing the command \"PrintGamesAppid\":\n{e}")
+            input("Enter to exit...")
 
     elif arg == "Visualization_CLI" or arg == "graph_CLI":
-        visualization_dialog()
+        try:
+            visualization_dialog()
+        except Exception as e:
+            print(f"There was an error when executing the command \"Visualization_CLI\":\n{e}")
+            input("Enter to exit...")
 
     elif arg == "Visualization_GUI" or arg == "graph":
-        games_data = generate_playtime_progression_csv(SAVE_FOLDER, "")
-        
-        steam_path = read_steam_path()
-        path = os.path.normpath(os.path.join(steam_path, "appcache/appinfo.vdf"))
-        raw_data = parse_appinfo(path)
-        correspondence = {}
-        
-        for appid in raw_data:
-            if raw_data[appid]["type"] in ["Game", "Demo", "Beta"]:
-                correspondence[appid] = raw_data[appid]['name']
-        
-        show_selection_GUI(games_data, correspondence)
+        try:
+            games_data = generate_playtime_progression_csv(SAVE_FOLDER, "")
+            
+            steam_path = read_steam_path()
+            path = os.path.normpath(os.path.join(steam_path, "appcache/appinfo.vdf"))
+            raw_data = parse_appinfo(path)
+            correspondence = {}
+            
+            for appid in raw_data:
+                if raw_data[appid]["type"] in ["Game", "Demo", "Beta"]:
+                    correspondence[appid] = raw_data[appid]['name']
+            
+            show_selection_GUI(games_data, correspondence)
+        except Exception as e:
+            print(f"There was an error when executing the command \"Visualization_GUI\":\n{e}")
+            input("Enter to exit...")
 
     else:
         print("Unknown argument:", arg)

@@ -55,9 +55,9 @@ def read_users(steam_path: str) -> list[dict[str, str]]:
     for long_id in content["users"]:
         new_user = {
             "LongID": long_id,
-            "AccountName": content["users"][long_id]["AccountName"],
-            "PersonaName": content["users"][long_id]["PersonaName"],
-            "LastLogin": content["users"][long_id]["Timestamp"],
+            "AccountName": content["users"][long_id]["AccountName"] if "AccountName" in content["users"][long_id] else None,
+            "PersonaName": content["users"][long_id]["PersonaName"] if "PersonaName" in content["users"][long_id] else None,
+            "LastLogin": content["users"][long_id]["Timestamp"] if "Timestamp" in content["users"][long_id] else None,
             "ContactID": None
         }
         users.append(new_user)
@@ -256,7 +256,7 @@ def read_steam_achievements_game(steam_path: str, userid: str, appid: int) -> li
     return content[0][1]["data"]
 
 
-def read_steam_friends(steam_path: str, userid: str) -> dict[dict]:
+def read_steam_friends(steam_path: str, userid: str) -> dict:
     r"""Reads the localconfig.vdf file (usually at: "C:\Program Files (x86)\Steam\userdata\[userid]\config\localconfig.vdf") to extract information about your friends
 
     :param steam_path: steam installation path (as read by steam_read_path())
